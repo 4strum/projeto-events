@@ -193,6 +193,11 @@ header{
   margin: 20px 0;
 }
 
+#items-list li {
+  display: flex;
+  padding: 5px 10px;
+}
+
 /* footer*/
 
 footer{
