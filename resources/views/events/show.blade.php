@@ -19,7 +19,6 @@
         <ul id="items-list">
           @foreach ($event->items as $item)
             <li><ion-icon name="play-outline"></ion-icon> {{ $item }}</li>
-          
           @endforeach
         </ul>
       </div>

@@ -29,6 +29,7 @@ class EventController extends Controller
         $event->private = $request->private;
         $event->description = $request->description;
         $event->items = $request->items;
+        $event->date = $request->date;
         
    // Image Upload
    if($request->hasFile('image') && $request->file('image')->isValid()) {
