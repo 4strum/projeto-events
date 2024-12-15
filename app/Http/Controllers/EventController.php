@@ -10,10 +10,20 @@ class EventController extends Controller
 {
     
     public function index(){
-        //pegar todas as informações da tabela
-        $events = Event::all();
-        
-        return view('welcome',['events' => $events]);
+
+        $search = request("search");
+
+        if($search){
+            $events = Event::where([
+                ["title","like","%".$search."%"]
+            ])->get();
+        }else{
+            //pegar todas as informações da tabela
+            $events = Event::all();
+        }
+       
+    
+        return view('welcome',['events' => $events, 'search'  => $search]);
     }
 
     public function create(){
