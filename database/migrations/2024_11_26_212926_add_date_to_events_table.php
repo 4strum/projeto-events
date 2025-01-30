@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->dateTime('date');
+            $table->dateTime('date')->nullable(); // Permite valores nulos
         });
     }
+    
 
     /**
      * Reverse the migrations.
