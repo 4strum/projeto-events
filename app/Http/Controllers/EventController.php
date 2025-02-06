@@ -8,30 +8,33 @@ use App\Models\Event;
 
 class EventController extends Controller
 {
-    
-    public function index(){
+
+    public function index()
+    {
 
         $search = request("search");
 
-        if($search){
+        if ($search) {
             $events = Event::where([
-                ["title","like","%".$search."%"]
+                ["title", "like", "%" . $search . "%"]
             ])->get();
-        }else{
+        } else {
             //pegar todas as informações da tabela
             $events = Event::all();
         }
-       
-    
-        return view('welcome',['events' => $events, 'search'  => $search]);
+
+
+        return view('welcome', ['events' => $events, 'search' => $search]);
     }
 
-    public function create(){
+    public function create()
+    {
         return view('events.create');
     }
 
-    public function store(Request $request){
-        
+    public function store(Request $request)
+    {
+
         $event = new Event;
 
         $event->title = $request->title;
@@ -40,32 +43,35 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->items = $request->items;
         $event->date = $request->date;
-        
-   // Image Upload
-   if($request->hasFile('image') && $request->file('image')->isValid()) {
 
-    $requestImage = $request->image;
+        // Image Upload
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
 
-    $extension = $requestImage->extension();
+            $requestImage = $request->image;
 
-    $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
+            $extension = $requestImage->extension();
 
-    $requestImage->move(public_path('img/events'), $imageName);
+            $imageName = md5($requestImage->getClientOriginalName() . strtotime("now")) . "." . $extension;
 
-    $event->image = $imageName;
+            $requestImage->move(public_path('img/events'), $imageName);
 
-  
+            $event->image = $imageName;
 
-}
+
+
+        }
+        $user = auth()->user();
+        $event->user_id = $user->id;
 
         $event->save();
 
         return redirect('/')->with('msg', 'evento criado com sucesso');
     }
 
-    public function show($id){
+    public function show($id)
+    {
         $event = Event::find($id);
-        
+
         return view('events.show', ['event' => $event]);
     }
 }
