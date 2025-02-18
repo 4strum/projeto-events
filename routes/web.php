@@ -9,17 +9,5 @@ Route::get('/events/create', [EventController::class, 'create'])->middleware('au
 Route::POST('/events', [EventController::class, 'store']);
 Route::get('/events/{id}', [EventController::class, 'show']);
 
-
-
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
+Route::get('/dashboard', [EventController::class, 'dashboard'])->middleware('auth');
 
