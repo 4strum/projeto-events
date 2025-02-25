@@ -10,7 +10,8 @@ Route::POST('/events', [EventController::class, 'store']);
 Route::get('/events/{id}', [EventController::class, 'show']);
 Route::delete('/events/{id}', [EventController::class, 'destroy'])->name('events.destroy')->middleware('auth');
 Route::get('/events/edit/{id}', [EventController::class, 'edit'])->name('events.edit')->middleware('auth');
-Route::put('/events/update/{id}', [EventController::class, 'update'])->name('events.update')->middleware('auth');;
+Route::put('/events/update/{id}', [EventController::class, 'update'])->name('events.update')->middleware('auth');
+Route::post('/events/join/{id}', [EventController::class, 'joinEvent'])->middleware('auth');
 
 Route::get('/dashboard', [EventController::class, 'dashboard'])->middleware('auth');
 

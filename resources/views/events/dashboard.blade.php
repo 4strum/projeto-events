@@ -22,7 +22,6 @@
 
                 <tbody>
                     @foreach ($events as $event)
-                        <>
                             <td>{{ $loop->index + 1 }}</td>
                             <td><a href="/events/{{ $event->id }}">{{ $event->title }}</a></td>
                             <td>0</td>

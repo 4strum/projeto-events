@@ -125,4 +125,22 @@ class EventController extends Controller
         return redirect('/dashboard')->with('msg', 'Evento editado com sucesso!');
 
     }
+    
+    public function joinEvent($id) {
+        $user = auth()->user();
+    
+        // Verifica se o usuário já está participando do evento para evitar duplicidade
+        if ($user->eventsAsParticipantes()->where('event_id', $id)->exists()) {
+            return redirect()->back()->with('msg', 'Você já está participando deste evento.');
+        }
+    
+        // Adiciona o usuário como participante do evento
+        $user->eventsAsParticipantes()->attach($id);
+    
+        $event = Event::findOrFail($id);
+    
+        // Redireciona o usuário com uma mensagem de sucesso
+        return redirect('/dashboard')->with('msg', 'Sua presença está confirmada no evento ' . $event->title);
+    }
+    
 }
