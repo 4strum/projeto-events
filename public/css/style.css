@@ -44,6 +44,15 @@ header{
     padding: 10px;
 }
 
+.already-joined-msg{
+    margin: 15px;
+    color: #004085;
+    background-color: #ccE5FF;
+    border: 1px solid #88DAFF;
+    padding: 10px;
+    width: 275px;
+}
+
 /* navbar */
 #navbar img {
     width: 40px;
